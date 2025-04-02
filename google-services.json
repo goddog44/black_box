@@ -1,0 +1,29 @@
+{
+    "project_info": {
+      "project_number": "272319909791",
+      "project_id": "nexus-pay-194c8",
+      "storage_bucket": "nexus-pay-194c8.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:272319909791:android:7b2f7efc841e77f5d1b7aa",
+          "android_client_info": {
+            "package_name": "com.nexu"
+          }
+        },
+        "oauth_client": [],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDI8divqJ3Y_Ov0z3C9KDUDQdwzvR7-JBQ"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": []
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

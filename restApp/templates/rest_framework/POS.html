@@ -1,0 +1,62 @@
+<!-- pos.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nexus Pay POS</title>
+</head>
+<body>
+  <h1>Nexus Pay POS System</h1>
+  <input type="number" id="amount" placeholder="Enter amount" />
+  <button id="start-scan">Scan NFC Card</button>
+  <p id="status"></p>
+
+  <script>
+    document.getElementById('start-scan').addEventListener('click', async () => {
+      const amount = document.getElementById('amount').value;
+      if (!amount) {
+        alert('Please enter an amount.');
+        return;
+      }
+
+      if ('NDEFReader' in window) {
+        try {
+          const ndef = new NDEFReader();
+          await ndef.scan();
+          document.getElementById('status').textContent = 'Hold the NFC card near your device.';
+
+          ndef.addEventListener('reading', async (event) => {
+            const nfcId = event.serialNumber;
+            console.log(`NFC Tag ID: ${nfcId}`);
+
+            // Send data to backend
+            const response = await fetch('https://your-backend-url/api/merchant-payment/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                // Include authentication headers as needed
+              },
+              body: JSON.stringify({
+                nfc_id: nfcId,
+                amount: amount,
+              }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+              alert('Payment successful.');
+            } else {
+              alert('Payment failed: ' + result.error);
+            }
+          });
+        } catch (error) {
+          console.error('NFC Error:', error);
+          alert('NFC scanning failed.');
+        }
+      } else {
+        alert('Web NFC is not supported on this device.');
+      }
+    });
+  </script>
+</body>
+</html>
